@@ -1,13 +1,40 @@
 import json
+from tkinter import *
+from tkinter import ttk
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 links = ["https://umareader.idsmile.xyz/en/character/1001/"]
 event_links = []
-full_scrape = True
+full_scrape = False
 driver = webdriver.Chrome()
 extra = ""
 
+# Insert Links
+root = Tk()
+root.geometry("300x235")
+
+def Take_input():
+    global links
+    global full_scrape
+    INPUT = inputtxt.get("1.0", "end-1c")
+    if "umareader" in INPUT:
+        print(INPUT)
+        links = INPUT.split()
+    else:
+        full_scrape = True
+    root.destroy()
+
+    
+l = Label(text = "Character/Card To Grab From")
+inputtxt = Text(root, height = 10, width = 25, bg = "light yellow")
+Display = Button(root, height = 2, width = 20, text ="Show", command = lambda:Take_input())
+
+l.pack()
+inputtxt.pack()
+Display.pack()
+
+mainloop()
 
 def get_links(xpath):
     element_num = 1
@@ -22,6 +49,8 @@ def get_links(xpath):
             element_num = 1
             # print("")
             break
+
+
 
 # Get Links
 if full_scrape:
